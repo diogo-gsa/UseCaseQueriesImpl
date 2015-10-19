@@ -1,0 +1,12 @@
+SELECT 	device_pk ,
+		measure_timestamp ,
+		COUNT ( current_measure ) AS measure ,
+		" Positive Integer " AS measure_unit ,
+		" Number of times that current consumption
+		was greater than expected " AS measure_description ,
+		device_location
+FROM Q15_ExpectedUDF . win : ext_timed( measure_timestamp , 60 min )
+WHERE current_measure > expected_measure
+GROUP BY device_pk
+HAVING 5 <= COUNT ( current_measure )
+		AND COUNT ( current_measure ) <= 10

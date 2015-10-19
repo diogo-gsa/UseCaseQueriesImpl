@@ -1,0 +1,12 @@
+INSERT INTO Q16_ExpectedLastMonthPivotHourAVG
+SELECT 	device_pk 			AS device_pk ,
+		measure_timestamp 	AS measure_timestamp ,
+		measure 			AS current_measure ,
+		AVG ( measure ) 	AS expected_measure ,
+		" WATT / m ^2 " 	AS measure_unit ,
+		" Current and Expected Power consumption given by the
+		AVG of the current hour computed along last month " AS measure_description ,
+		device_location 	AS device_location
+FROM Q14_Normalization . win : ext_timed ( measure_timestamp , 1 month )
+GROUP BY device_pk ,
+DateTime . toDate ( measure_timestamp , " yyyy - MM - dd HH : mm : ss " ) . getHours ()

@@ -1,0 +1,13 @@
+SELECT 	device_pk 					AS device_pk,
+		measure_timestamp 			AS measure_timestamp,
+		( MIN ( measure )
+		/ MAX ( measure )) 			AS measure,
+		" Ratio = [0,1] " 			AS measure_unit,
+		" Min / Max Power Consumption
+		Ratio during last hour "	AS measure_description,
+		device_location 			AS device_location,
+		MIN ( measure ) 			AS min_hourly,
+		MAX ( measure ) 			AS max_hourly,
+FROM Q14_Normalization . win : ext_timed
+( measure_timestamp, 60 min )
+GROUP BY device_pk

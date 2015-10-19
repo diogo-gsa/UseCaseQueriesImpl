@@ -1,0 +1,12 @@
+INSERT INTO Q13_Smoothing
+SELECT 	device_pk 			AS device_pk ,
+		measure_timestamp 	AS measure_timestamp ,
+		AVG ( measure ) 	AS measure ,
+		" WATT " 			AS measure_unit ,
+		" Smoothing measurements with
+		10 min AVG slide window "	AS measure_description ,
+		device_location 	AS device_location ,
+		location_area_m2 	AS location_area_m2
+FROM Q10_3PhAgg_DBIntegr
+. win : ext_timed ( measure_timestamp , 5 min )
+GROUP BY device_pk

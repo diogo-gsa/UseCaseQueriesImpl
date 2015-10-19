@@ -1,0 +1,10 @@
+SELECT 	device_pk 			AS device_pk,
+		measure_timestamp 	AS measure_timestamp,
+		measure 			AS measure,
+		" WATT " 			AS measure_unit,
+		" Ranked list of energy consumption
+		per device " 		AS measure_description,
+		device_location 	AS device_location
+FROM Q14_Normalization.std:unique ( device_pk )
+OUTPUT SNAPSHOT EVERY 1 EVENTS
+ORDER BY measure DESC

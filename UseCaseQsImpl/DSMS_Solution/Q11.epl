@@ -1,12 +1,12 @@
 INSERT INTO Q11_Variation
-SELECT 	device_pk AS device_pk ,
-		measure_timestamp AS measure_timestamp ,
-		( measure / AVG ( measure ) - 1) *100 AS measure ,
-		measure AS current_power_consumption ,
-		" Percentage % " AS measure_unit ,
-		" Power Consumption variation
-		over 5 minutes " AS measure_description ,
-		device_location AS device_location ,
-		location_area_m2 AS location_area_m2
+SELECT 	device_pk 				AS device_pk ,
+	measure_timestamp 			AS measure_timestamp ,
+	( measure / AVG ( measure ) - 1) *100 	AS measure ,
+	measure 				AS current_power_consumption ,
+	" Percentage % " 			AS measure_unit ,
+	" Power Consumption variation
+	over 5 minutes " 			AS measure_description ,
+	device_location 			AS device_location ,
+	location_area_m2 			AS location_area_m2
 FROM Q10_3PhAgg_DBIntegr . win : ext_timed ( measure_timestamp , 5 min )
 GROUP BY device_pk

@@ -1,23 +1,23 @@
 INSERT INTO AuxStream_SquareMeterNormalization
-SELECT 	device_pk AS device_pk ,
-		measure_timestamp AS measure_timestamp ,
-		measure / location_area_m2 AS measure ,
-		" WATT / m ^2 " AS measure_unit ,
-		" Each device square
-		meter normalization " AS measure_description ,
-		device_location AS device_location
+SELECT 	device_pk 			AS device_pk ,
+	measure_timestamp 		AS measure_timestamp ,
+	measure / location_area_m2 	AS measure ,
+	" WATT / m ^2 " 		AS measure_unit ,
+	" Each device square
+	meter normalization " 		AS measure_description ,
+	device_location 		AS device_location
 FROM Q13_Smoothing
 
 
 INSERT INTO AuxStream_SquareMeterNormalization
-SELECT 	0 AS device_pk ,
-		MIN ( measure_timestamp ) AS measure_timestamp ,
-		( SUM ( measure )
-		/ SUM ( location_area_m2 )) AS measure ,
-		" WATT / m ^2 " AS measure_unit ,
-		" All Building square meter
-		normalized consumption " AS measure_description ,
-		" ALL_BUILDING " AS device_location
+SELECT 	0 				AS device_pk ,
+	MIN ( measure_timestamp ) 	AS measure_timestamp ,
+	( SUM ( measure )
+	/ SUM ( location_area_m2 )) 	AS measure ,
+	" WATT / m ^2 " 		AS measure_unit ,
+	" All Building square meter
+	normalized consumption " 	AS measure_description ,
+	" ALL_BUILDING " 		AS device_location
 FROM Q13_Smoothing.std : unique ( device_pk )
 HAVING COUNT ( device_pk ) = 8
 OUTPUT LAST EVERY 8 EVENTS
@@ -25,10 +25,10 @@ OUTPUT LAST EVERY 8 EVENTS
 
 INSERT INTO Q14_Normalization
 SELECT 	device_pk ,
-		measure_timestamp_long ,
-		measure_timestamp ,
-		measure ,
-		measure_unit ,
-		measure_description ,
-		device_location
+	measure_timestamp_long ,
+	measure_timestamp ,
+	measure ,
+	measure_unit ,
+	measure_description ,
+	device_location
 FROM AuxStream_SquareMeterNormalization

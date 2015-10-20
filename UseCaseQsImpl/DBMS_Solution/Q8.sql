@@ -17,4 +17,4 @@ GROUP BY r2.device_pk,
 	 r2.expected_measure,
 	 r2.device_location
 HAVING 5 <= COUNT ( r2.current_measure )
-	AND COUNT ( r2.current_measure ) <= 10
+	AND COUNT ( r2.current_measure ) <= 10 

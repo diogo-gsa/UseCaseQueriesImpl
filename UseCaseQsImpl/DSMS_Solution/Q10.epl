@@ -1,30 +1,30 @@
 INSERT INTO Q10_3PhAgg_DBIntegr
-SELECT 	bd . device_pk 			AS device_pk ,
-		stream . measureTS 		AS measure_timestamp ,
-		SUM ( stream . measure )AS measure ,
-		" WATT " 				AS measure_unit ,
-		" Power Consumption " 	AS measure_description ,
-		bd . device_location 	AS device_location ,
-		bd . location_area_m2 	AS location_area_m2
+SELECT 	bd . device_pk 		AS device_pk ,
+	stream . measureTS 	AS measure_timestamp ,
+	SUM ( stream . measure )AS measure ,
+	" WATT " 		AS measure_unit ,
+	" Power Consumption " 	AS measure_description ,
+	bd . device_location 	AS device_location ,
+	bd . location_area_m2 	AS location_area_m2
 FROM 	Datastream . Measure 	AS stream ,
 		sql:database[
 		SELECT 	dev . device_pk 	AS device_pk ,
-				dpu . unit 			AS measure_unit ,
-				dpd . description 	AS measure_description ,
-				dl . location 		AS device_location ,
-				dl . area_m2 		AS location_area_m2
-		FROM 	" DataPoint " dp
-				JOIN " Device " dev
-				ON dp . device_fk = dev . device_pk
-				JOIN " DeviceLocation " dl
-				ON dev . device_location_fk
-				= dl . device_location_pk
-				JOIN " DataPointDescriptiondpd " dpd
-				ON dp . datapoint_description_fk
-				= dpd . datapoint_description_pk
-				JOIN " DataPointUnit " dpu
-				ON dp . datapoint_unit_fk
-				= dpu . datapoint_unit_pk
+			dpu . unit		AS measure_unit ,
+			dpd . description 	AS measure_description ,
+			dl . location 		AS device_location ,
+			dl . area_m2 		AS location_area_m2
+		FROM 	" DataPoint " 				dp
+			JOIN " Device " 			dev
+			ON dp . device_fk = dev . device_pk
+			JOIN " DeviceLocation " 		dl
+			ON dev . device_location_fk
+			= dl . device_location_pk
+			JOIN " DataPointDescriptiondpd " 	dpd
+			ON dp . datapoint_description_fk
+			= dpd . datapoint_description_pk
+			JOIN " DataPointUnit " 			dpu
+			ON dp . datapoint_unit_fk
+			= dpu . datapoint_unit_pk
 		WHERE $fstream.datapointFkg = dp . datapoint_pk
 			AND ( dpd . description
 				= " Phase1_EnergyConsumption "
@@ -32,7 +32,7 @@ FROM 	Datastream . Measure 	AS stream ,
 				= " Phase2_EnergyConsumption "
 				OR dpd . description
 				= " Phase3_EnergyConsumption " )
-		] 	AS bd
+		] AS bd
 GROUP BY bd . device_pk ,
-		 stream . measureTS
+	 stream . measureTS
 HAVING COUNT ( stream . measureTS ) = 3;

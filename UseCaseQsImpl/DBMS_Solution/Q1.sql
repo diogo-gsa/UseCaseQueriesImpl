@@ -1,12 +1,12 @@
 SELECT 	device_pk ,
-		measure_timestamp ,
-		measure ,
-		current_power_consumption ,
-		' Percentage % ' 			AS measure_unit ,
-		' Power Consumption variation over
-		5 min exceeds threshold ' 	AS measure_description ,
-		device_location ,
-		location_area_m2
+	measure_timestamp ,
+	measure ,
+	current_power_consumption ,
+	'Percentage % ' 		AS measure_unit ,
+	'Power Consumption variation over
+	5 min exceeds threshold ' 	AS measure_description ,
+	device_location ,
+	location_area_m2
 FROM 	"Q11_Variation "
 WHERE 	index = 1 /* Threshold Limit Values */
 AND	  (( device_pk = 1 AND measure >= ThrVal1 )

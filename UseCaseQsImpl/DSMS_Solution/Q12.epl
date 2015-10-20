@@ -1,12 +1,12 @@
 INSERT INTO Q12_Period
-SELECT 	device_pk 						AS device_pk
-		last ( measure_timestamp ,0) 	AS measure_timestamp ,
-		( last ( measure_timestamp ,0)
-		- last ( measure_timestamp ,1))	AS measure ,
-		" Time Seconds " 				AS measure_unit ,
-		" Last measurement period " 	AS measure_description ,
-		device_location 				AS device_location ,
-		location_area_m2 				AS location_area_m2
+SELECT 	device_pk 			AS device_pk
+	last ( measure_timestamp ,0) 	AS measure_timestamp ,
+	( last ( measure_timestamp ,0)
+	- last ( measure_timestamp ,1))	AS measure ,
+	" Time Seconds " 		AS measure_unit ,
+	" Last measurement period " 	AS measure_description ,
+	device_location 		AS device_location ,
+	location_area_m2 		AS location_area_m2
 FROM Q10_3PhAgg_DBIntegr. std : groupwin ( device_pk ). win : length (2)
 GROUP BY device_pk
 HAVING COUNT (*) > 1

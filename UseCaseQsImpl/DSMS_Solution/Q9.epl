@@ -1,13 +1,13 @@
 SELECT 	device_pk ,
-		measure_timestamp ,
-		( current_measure
-		/ expected_measure -1) *100 	AS measure ,
-		" Percentage % " 				AS measure_unit ,
-		" Delta between current and expecetd consumption
-		exceeded a given threshold " 	AS measure_description ,
-		current_measure
-		expected_measure
-		device_location
+	measure_timestamp ,
+	( current_measure
+	/ expected_measure -1) *100 	AS measure ,
+	" Percentage % " 		AS measure_unit ,
+	" Delta between current and expecetd consumption
+	exceeded a given threshold " 	AS measure_description ,
+	current_measure
+	expected_measure
+	device_location
 FROM Q16_ExpectedLastMonthPivotHourAVG
 /* Threshold */
 WHERE ( current_measure / expected_measure -1) *100 > 10

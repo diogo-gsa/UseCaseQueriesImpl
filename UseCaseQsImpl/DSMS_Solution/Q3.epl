@@ -1,10 +1,10 @@
 SELECT 	device_pk,
 	measure_timestamp,
 	measure,
-	AVG ( measure ) *1.20 			  AS measure_threshold,
+	AVG(measure)*1.20 			  AS measure_threshold,
 	measure_unit,
 	" Power consumption 20% > last 24 hours " AS measure_description,
 	device_location
-FROM Q13_Smoothing.win:ext_timed ( measure_timestamp_long, 24 hours )
+FROM Q13_Smoothing.win:ext_timed(measure_timestamp_long, 24 hours)
 GROUP BY device_pk
-HAVING measure >= AVG ( measure ) *1.20 /* Threshold */
+HAVING measure >= AVG(measure) *1.20 /* Threshold */

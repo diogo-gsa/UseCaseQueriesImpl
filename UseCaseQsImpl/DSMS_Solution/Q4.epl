@@ -1,10 +1,10 @@
-SELECT 	device_pk 							AS device_pk
-		measure_timestamp 					AS measure_timestamp ,
-		( measure / SUM ( measure ) ) *100 	AS measure ,
-		" Percentage % " 					AS measure_unit ,
-		" Pie chart of energy consumptions
-			per device " 					AS measure_description ,
-		device_location 					AS device_location
+SELECT 	device_pk 				AS device_pk
+	measure_timestamp 			AS measure_timestamp ,
+	( measure / SUM ( measure ) ) *100 	AS measure ,
+	" Percentage % " 			AS measure_unit ,
+	" Pie chart of energy consumptions
+	  per device " 				AS measure_description ,
+	device_location 			AS device_location
 FROM 	Q14_Normalization . std : unique ( device_pk )
 WHERE 	device_pk != 0
 OUTPUT SNAPSHOT EVERY 1 EVENTS

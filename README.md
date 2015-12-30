@@ -8,4 +8,4 @@ The queries implementation is based on [this **Data Schema** of the Building Ene
 
 ***
 
-_**Appendix** of the conference paper: **"Real-Time Monitoring of Building Energy Metering Networks"**, submitted to the “32nd IEEE International Conference on Data Engineering, **ICDE 2016**, Helsinki, Finland (May 2016)”_.
+_**Appendix** of the conference paper: **"Real-Time Monitoring of Building Energy Metering Networks"**, (Anjos et al., 2015)._
